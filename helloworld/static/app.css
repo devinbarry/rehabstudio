@@ -1,0 +1,115 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono:300,100);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+@import url(https://fonts.googleapis.com/css?family=Allerta+Stencil);
+@import url(https://fonts.googleapis.com/css?family=Marcellus);
+@import url(https://fonts.googleapis.com/css?family=Limelight);
+@import url(https://fonts.googleapis.com/css?family=Cinzel+Decorative);
+
+body {
+    background: #fff;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.nerderlands {
+    font-family: 'Allerta Stencil', sans-serif;
+    font-size: 80px;
+}
+
+.header {
+    background: white;
+}
+
+.news-intro {
+    font-weight: bold;
+}
+
+.news-item {
+    background: white;
+    font-size: 16px;
+}
+
+.dateline {
+    color: #333333;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'Cinzel Decorative', cursive;
+
+}
+
+h1.title {
+    font-size: 50px;
+    font-weight: bold;
+    font-family: 'Limelight', cursive;
+}
+
+h2 {
+    font-family: 'Marcellus', serif;
+    font-style: italic;
+    font-size: 24px;
+}
+
+h2.subtitle {
+    font-family: 'Marcellus', serif;
+    font-style: normal;
+    color: #76768a;
+}
+
+label {
+    margin-top: 5px;
+}
+
+.sub-header {
+    font-family: 'Roboto Mono';
+    background: #DDDDDD;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 300;
+
+}
+
+img {
+    width: 100%;
+}
+
+ul.sections, ul.keywords {
+    padding-top: 10px;
+}
+
+ul.sections li, ul.keywords li {
+    display: inline;
+}
+
+.btn.round {
+    border-radius: 24px;
+    margin-right: 3px;
+    margin-bottom: 3px;
+}
+
+.sectionbar {
+    font-size: 20px;
+    padding-left: 0px;
+    color: #0a0808;
+    font-family: 'Roboto Mono';
+    font-weight: 100;
+}
+
+span.bold {
+    font-weight: bold;
+}
+
+span.italic {
+    font-style: italic;
+}
+
+span.underline {
+    text-decoration: underline;
+}
+
+.news-carousel {
+    width:100%;
+}
+
+.error {
+    color: #800;
+    font-weight: bold;
+}
