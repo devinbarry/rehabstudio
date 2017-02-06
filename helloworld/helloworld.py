@@ -14,19 +14,12 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        bucket_name = os.environ.get('BUCKET_NAME', app_identity.get_default_gcs_bucket_name())
-
-        bucket_list = self.get_bucket_list('/' + bucket_name)
-        file_names = [file.filename for file in bucket_list]
-        file_names = [part.split('/')[-1] for part in file_names]
-        root = 'https://storage.cloud.google.com/devinbarry.appspot.com/'
-        file_names = [root + file_name for file_name in file_names]
-
         user = users.get_current_user()
         if user:
             nickname = user.nickname()
             logout_url = users.create_logout_url('/')
-            template_values = {'user_nick': nickname, 'logout_url': logout_url, 'file_names': file_names}
+            image_urls = self._get_image_urls()
+            template_values = {'user_nick': nickname, 'logout_url': logout_url, 'image_urls': image_urls}
             template = JINJA_ENVIRONMENT.get_template('templates/images.html')
             self.response.write(template.render(template_values))
         else:
@@ -34,7 +27,20 @@ class MainPage(webapp2.RequestHandler):
             greeting = '<a href="{}">Sign in</a>'.format(login_url)
             self.response.write(greeting)
 
-    def get_bucket_list(self, bucket):
+    def _get_image_urls(self):
+        """
+        There is code in the google libraries that gives me file URLS, but this
+        is faster right now to just get this done. Yes I know its a nasty hack.
+        :return:
+        """
+        bucket_name = os.environ.get('BUCKET_NAME', app_identity.get_default_gcs_bucket_name())
+        bucket_list = self._get_bucket_list('/' + bucket_name)
+        file_names = [file.filename.split('/')[-1] for file in bucket_list]
+        root = 'https://storage.cloud.google.com/devinbarry.appspot.com/'
+        return [root + file_name for file_name in file_names]
+
+    @staticmethod
+    def _get_bucket_list(bucket):
         bucket_list = []
         page_size = 100
         stats = gcs.listbucket(bucket, max_keys=page_size)

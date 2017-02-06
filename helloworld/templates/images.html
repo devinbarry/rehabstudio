@@ -26,8 +26,8 @@
 
 <p>Welcome, {{ user_nick }}! (<a href="{{ logout_url }}">sign out</a>)</p>
 
-{% for file_name in file_names %}
-    <img src="{{ file_name }}" style="width: 50px; height: 50px;">
+{% for image_url in image_urls %}
+    <img src="{{ image_url }}" style="width: 50px; height: 50px;">
 {% endfor %}
 
 </body>
