@@ -3,6 +3,7 @@ import os
 import jinja2
 import webapp2
 import lib.cloudstorage as gcs
+from google.appengine.api import users
 from google.appengine.api import app_identity
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -21,11 +22,17 @@ class MainPage(webapp2.RequestHandler):
         root = 'https://storage.cloud.google.com/devinbarry.appspot.com/'
         file_names = [root + file_name for file_name in file_names]
 
-        # 'https://storage.cloud.google.com/devinbarry.appspot.com/Carpaccio.jpg'
-
-        template_values = {'imageUrl': 'test', 'file_names': file_names}
-        template = JINJA_ENVIRONMENT.get_template('templates/images.html')
-        self.response.write(template.render(template_values))
+        user = users.get_current_user()
+        if user:
+            nickname = user.nickname()
+            logout_url = users.create_logout_url('/')
+            template_values = {'user_nick': nickname, 'logout_url': logout_url, 'file_names': file_names}
+            template = JINJA_ENVIRONMENT.get_template('templates/images.html')
+            self.response.write(template.render(template_values))
+        else:
+            login_url = users.create_login_url('/')
+            greeting = '<a href="{}">Sign in</a>'.format(login_url)
+            self.response.write(greeting)
 
     def get_bucket_list(self, bucket):
         bucket_list = []
@@ -113,7 +120,8 @@ class Upload(webapp2.RequestHandler):
         """
         self.response.write('Creating file %s\n' % filename)
         write_retry_params = gcs.RetryParams(backoff_factor=1.1)
-        gcs_file = gcs.open(filename, 'w', retry_params=write_retry_params)
+        gcs_file = gcs.open(filename, 'w', options={'x-goog-acl': 'public-read'},
+                            retry_params=write_retry_params)
         gcs_file.write(file_data)
         gcs_file.close()
 
