@@ -93,10 +93,8 @@ class ListBucket(webapp2.RequestHandler):
 
 class Upload(webapp2.RequestHandler):
     def get(self):
-        template_values = {'imageUrl': 'test'}
-
         template = JINJA_ENVIRONMENT.get_template('templates/upload.html')
-        self.response.write(template.render(template_values))
+        self.response.write(template.render({}))
 
     def post(self):
         # app_default_bucket
