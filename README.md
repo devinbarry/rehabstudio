@@ -38,7 +38,7 @@ This obviously doesnt work. This page forces you to login
 1. Allow uploading files with duplicate names by using UUID
 2. Prevent uploading/remove files that are not images
 3. Filter output display so that only images are displayed
-4. Remove hardcoding of image URL
+4. Use the GCS URL functions that I was reading about last night rather than rolling my own
 5. Resize images for fast page loading
 
 
