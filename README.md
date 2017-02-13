@@ -14,12 +14,12 @@ Rehab studio test
 ### How to use
 
 
-https://devinbarry.appspot.com/upload allows you to upload an image (or any other type of file)
+https://devinbarry.appspot.com/upload allows you to upload an image (or any other type of file).
 A Check box allows you to choose if this image should be public or not
 
 When an image uploads successfully you get a success page.
 
-https://devinbarry.appspot.com/ displays all public images uploaded and also shows you your own private images.
+https://devinbarry.appspot.com/ displays all public images and also shows you your own private images.
 It tries to display other kinds of files too. This obviously doesnt work. This page forces you to login
 
 
