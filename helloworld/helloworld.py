@@ -2,6 +2,7 @@ import os
 
 import jinja2
 import webapp2
+import uuid
 import lib.cloudstorage as gcs
 from google.appengine.api import users
 from google.appengine.api import app_identity
@@ -121,8 +122,11 @@ class Upload(webapp2.RequestHandler, LoginMixin):
             if public is not None:
                 check_box = True
 
-            # Use uuid4() here to make file names unique if needed
             file_name = self.request.params['image'].filename
+            # Make file name unique
+            name, extension = file_name.rsplit('.', 1)
+            file_name = '{}-{}.{}'.format(name, uuid.uuid4(), extension)
+
             self._upload_to_gcs('/' + bucket_name + '/' + file_name, image, check_box=check_box)
             self._store_image_data(file_name, check_box, user.email())
             self.response.headers['Content-Type'] = 'text/plain'
